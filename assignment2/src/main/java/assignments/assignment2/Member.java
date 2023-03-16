@@ -10,6 +10,7 @@ public class Member {
     private int bonusCounter;
 
     public Member(String nama, String noHp) {
+        // constructor kelas member
         this.nama = nama;
         this.noHp = noHp;
         this.id = NotaGenerator.generateId(nama, noHp);
@@ -32,6 +33,7 @@ public class Member {
         return bonusCounter;
     }
 
+    //menambah 1 setiap dipanggil di generate nota
     public int setBonusCounter(){
         return bonusCounter++;
     }

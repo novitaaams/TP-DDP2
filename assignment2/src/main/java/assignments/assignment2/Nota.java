@@ -18,6 +18,7 @@ public class Nota {
 
     // TODO: tambahkan attributes yang diperlukan untuk class ini
     public Nota(int id, Member member, String paket, int berat, String tanggalMasuk, int sisaHariPengerjaan, boolean isReady) {
+        //constructor kelas Nota
         this.id = id;
         this.member = member;
         this.paket = paket;
@@ -26,8 +27,6 @@ public class Nota {
         this.sisaHariPengerjaan = sisaHariPengerjaan;
         this.isReady = isReady;
 
-        
-        // TODO: buat constructor untuk class ini
     }
 
     //menambagkan setter getter
@@ -59,7 +58,6 @@ public class Nota {
     public void discount(){
         //apabila counter habis dibagi 3 maka kelipatan 3 dan mendapat diskon
         if (member.getbonusCounter() % 3 == 0) {
-            String nota = "";
             System.out.println("Nota Laundry");
             System.out.println("ID    : " + member.getId());
             System.out.println("Paket : " + paket);
@@ -77,9 +75,10 @@ public class Nota {
                 hargaPaket = "7000";
             }
             System.out.println("Harga : ");
-            System.out.println(berat + " kg x " + hargaPaket + " = " + harga  + " = " + (harga/2) + " (Discount member 50%!!!)\n");
+            System.out.println(berat + " kg x " + hargaPaket + " = " + harga  + " = " + (harga/2) + " (Discount member 50%!!!)");
             System.out.println("Tanggal Terima  : " + tanggalMasuk);
 
+            //tanggal masuk
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate tanggalAwal = LocalDate.parse(tanggalMasuk, formatter);
 
@@ -98,6 +97,7 @@ public class Nota {
             System.out.println("Tanggal Selesai : " + tanggalAkhirStr);
             System.out.println("Status      	: Belum bisa diambil :(");
         } else {
+            //apabila bukan kelipatan tiga
             String idMember = member.getId();
             String nota = NotaGenerator.generateNota(idMember, paket, berat, tanggalMasuk);
             System.out.println(nota);
