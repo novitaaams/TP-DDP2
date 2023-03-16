@@ -1,5 +1,6 @@
 package assignments.assignment1;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -40,8 +41,7 @@ public class NotaGenerator {
                 // jika pilihan == 2
             } else if ("2".equals(pilihan)) {
                 System.out.println("Masukkan nama Anda: ");
-                String nama2 = input.nextLine().toUpperCase();
-                nama2 += input.nextLine().toUpperCase();
+                String nama2 = input.nextLine();
                 // membuat looping nomer hp
                 System.out.println("Masukkan nomor handphone Anda: ");
                 String nomor2 = "";
@@ -119,14 +119,15 @@ public class NotaGenerator {
     }
 
     public static String generateId(String nama, String nomorHP) {
-        int indeks = nama.indexOf(" ");
+        String namaUpperCase = nama.toUpperCase();
+        int indeks = namaUpperCase.indexOf(" ");
         System.out.println(indeks);
         // membuat id sementara
         String idSementara;
-        if (nama.contains(" ")) {
-            idSementara = nama.substring(0, indeks) + "-" + nomorHP;
+        if (namaUpperCase.contains(" ")) {
+            idSementara = namaUpperCase.substring(0, indeks) + "-" + nomorHP;
         } else {
-            idSementara = nama + "-" + nomorHP;
+            idSementara = namaUpperCase + "-" + nomorHP;
         }
         int total = 0;
         // menotal jumlah id sementara
@@ -172,78 +173,25 @@ public class NotaGenerator {
         System.out.println(berat + " kg x " + hargaPaket + " = " + harga);
         System.out.println("Tanggal Terima  : " + tanggalTerima);
 
-        String tanggalSelesai = tanggalTerima.substring(0, 2);
-        int tanggalSelesaiInt = Integer.parseInt(tanggalSelesai);
-        String bulanSelesai = tanggalTerima.substring(3, 5);
-        int bulanSelesaiInt = Integer.parseInt(bulanSelesai);
-        // membuat validasi untuk tanggal
-        if (paket.toUpperCase().equals("EXPRESS")) {
-            tanggalSelesaiInt += 1;
-            if (bulanSelesaiInt == 1 || bulanSelesaiInt == 3 || bulanSelesaiInt == 6 || bulanSelesaiInt == 7 || bulanSelesaiInt == 8 || bulanSelesaiInt == 10 || bulanSelesaiInt == 12){
-                if (tanggalSelesaiInt > 31) {
-                    bulanSelesaiInt += 1;
-                    tanggalSelesaiInt -= 31;
-                }
-            } else if (bulanSelesaiInt == 2) {
-                if (tanggalSelesaiInt > 28) {
-                    bulanSelesaiInt += 1;
-                    System.out.println(bulanSelesaiInt);
-                    tanggalSelesaiInt -= 28;
-                }
-            } else if (bulanSelesaiInt < 12) {
-                if (tanggalSelesaiInt > 30) {
-                    bulanSelesaiInt += 1;
-                    tanggalSelesaiInt -= 30;
-                }
-            }
-        } else if (paket.toUpperCase().equals("FAST")) {
-            tanggalSelesaiInt += 2;
-            if (bulanSelesaiInt == 1 || bulanSelesaiInt == 3 || bulanSelesaiInt == 6 || bulanSelesaiInt == 7 || bulanSelesaiInt == 8 || bulanSelesaiInt == 10 || bulanSelesaiInt == 12) {
-                if (tanggalSelesaiInt > 31) {
-                    bulanSelesaiInt += 1;
-                    tanggalSelesaiInt -= 31;
-                }
-            } else if (bulanSelesaiInt == 2) {
-                if (tanggalSelesaiInt > 28) {
-                    bulanSelesaiInt += 1;
-                    System.out.println(bulanSelesaiInt);
-                    tanggalSelesaiInt -= 28;
-                }
-            } else if (bulanSelesaiInt < 12) {
-                if (tanggalSelesaiInt > 30) {
-                    bulanSelesaiInt += 1;
-                    tanggalSelesaiInt -= 30;
-                }
-            }
-        } else if (paket.toUpperCase().equals("REGULER")) {
-            tanggalSelesaiInt += 3;
-            if (bulanSelesaiInt == 1 || bulanSelesaiInt == 3 || bulanSelesaiInt == 6 || bulanSelesaiInt == 7 || bulanSelesaiInt == 8 || bulanSelesaiInt == 10 || bulanSelesaiInt == 12) {
-                if (tanggalSelesaiInt > 31) {
-                    bulanSelesaiInt += 1;
-                    tanggalSelesaiInt -= 31;
-                }
-            } else if (bulanSelesaiInt == 2) {
-                if (tanggalSelesaiInt > 28) {
-                    bulanSelesaiInt += 1;
-                    tanggalSelesaiInt -= 28;
-                }
-            } else if (bulanSelesaiInt < 12) {
-                if (tanggalSelesaiInt > 30) {
-                    bulanSelesaiInt += 1;
-                    tanggalSelesaiInt -= 30;
-                }
-            }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate tanggalAwal = LocalDate.parse(tanggalTerima, formatter);
+
+        int tambahanHari = 0;
+        if (paket.toUpperCase().equals("EXPRESS")){
+            tambahanHari = 1;
+        } else if (paket.toUpperCase().equals("FAST")){
+            tambahanHari = 2;
+        } else if (paket.toUpperCase().equals("REGULER")){
+            tambahanHari = 3;
         }
-        String tahunTerima = tanggalTerima.substring(6, 10);
-        if (bulanSelesaiInt > 12) {
-            bulanSelesaiInt -= 12;
-        }
-        int tahunterimaInt = Integer.parseInt(tahunTerima);
-        String tanggalSelesaiBanget = String.format("%02d", tanggalSelesaiInt) + "/" + String.format("%02d",bulanSelesaiInt) + "/" + tahunterimaInt;
-        System.out.println("Tanggal Selesai : " + tanggalSelesaiBanget);
-        return tanggalSelesaiBanget;
+
+        LocalDate tanggalAkhir = tanggalAwal.plusDays(tambahanHari);
+        String tanggalAkhirStr = tanggalAkhir.format(formatter);
+
+        System.out.println("Tanggal Selesai : " + tanggalAkhirStr);
+        return tanggalAkhirStr;
     }
-    private static void showPaket() {
+    public static void showPaket() {
         System.out.println("+-------------Paket-------------+");
         System.out.println("| Express | 1 Hari | 12000 / Kg |");
         System.out.println("| Fast    | 2 Hari | 10000 / Kg |");
