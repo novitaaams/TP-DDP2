@@ -121,7 +121,7 @@ public class NotaGenerator {
     public static String generateId(String nama, String nomorHP) {
         String namaUpperCase = nama.toUpperCase();
         int indeks = namaUpperCase.indexOf(" ");
-        System.out.println(indeks);
+        //System.out.println(indeks);
         // membuat id sementara
         String idSementara;
         if (namaUpperCase.contains(" ")) {
