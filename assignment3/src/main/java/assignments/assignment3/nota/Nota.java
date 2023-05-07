@@ -136,7 +136,7 @@ public class Nota {
         for (int i = 0; i<services.length; i++){
             nota += "\n-" + services[i].getServiceName() + " @ Rp." + services[i].getHarga(berat);
         }
-        nota += "Harga Akhir:" +  calculateHarga();
+        nota += "\nHarga Akhir:" +  calculateHarga();
         if (hariKompensasi > 0){
             nota += "\n Ada kompensasi keterlambatan " + hariKompensasi + " * 2000 hari";
         }
