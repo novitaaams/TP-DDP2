@@ -130,6 +130,7 @@ public class MemberSystem extends SystemCLI {
 
         for(int i = 0; i<memberList.length; i++){
             newMemberList[i] = memberList[i];
+            //System.out.println(memberList[i].getNama());
         }
         newMemberList[memberList.length] = member;
         memberList = newMemberList;

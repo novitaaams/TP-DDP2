@@ -14,6 +14,7 @@ public class NotaManager {
     public static void toNextDay(){
         //TODO: implement skip hari
         //looping dan melakukan atau memanggil method tonextday untuk setiap nota di notalist
+        NotaManager.cal.add(Calendar.DAY_OF_MONTH, 1);
         for (int i = 0; i<notaList.length; i++){
             notaList[i].toNextDay();;
         }

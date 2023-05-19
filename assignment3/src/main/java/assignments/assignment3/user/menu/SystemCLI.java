@@ -66,6 +66,7 @@ public abstract class SystemCLI {
                 continue;
             }
             if(user.login(id, pass)){
+                System.out.println(user.getNama());
                 return user;
             }
             return null;

@@ -17,6 +17,7 @@ public class Employee extends Member {
     private static String generateId(String nama) {
         // TODO
         //membuat id dari employee
+        //employeeCount++;
         int indeks = nama.indexOf(" ");
         String idSementara;
         if (nama.contains(" ")) {
